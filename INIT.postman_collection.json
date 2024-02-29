@@ -1,0 +1,72 @@
+{
+	"info": {
+		"_postman_id": "613aa3be-826d-47e2-9b5f-c11ec35b83c2",
+		"name": "INIT",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "30904987"
+	},
+	"item": [
+		{
+			"name": "init",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"pm.test(\"Check if 'data' parameter exists\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData).to.have.property('data');",
+							"});",
+							"pm.test(\"Check if 'auth' parameter exists in 'data'\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.data).to.have.property('auth');",
+							"});",
+							"pm.test(\"Save timeZone value\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.collectionVariables.set(\"timeZone\", jsonData.time);",
+							"});",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"accessToken\": \"string\",\n    \"timeZone\": \"string\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseUrl}}/gw/v1/game/{{campaignId}}/init",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"gw",
+						"v1",
+						"game",
+						"{{campaignId}}",
+						"init"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"variable": [
+		{
+			"key": "timeZone",
+			"value": ""
+		}
+	]
+}
